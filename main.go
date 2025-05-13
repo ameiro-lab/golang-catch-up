@@ -1,28 +1,21 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"	// HTTPサーバーに関するパッケージ
+	"golang-catch-up/pkg/handler"
 )
-
-/**
-	プロコトル＋ホスト名＋ポート(http://localhost:8080)＋"/" にアクセスが来た時、
- */
-func handler(w http.ResponseWriter, r *http.Request) {	// 引数の型は importしている net/http パッケージ内で定義された型
-	fmt.Fprintf(w, "Hello, World!")	// 第一引数は出力先
-}
 
 func main() {
 
 	// リクエスト時の処理を設定する
-	http.HandleFunc("/", handler)	// 第一引数に一致するリクエストが来たら、第二引数を実行
+	http.HandleFunc("/", handler.HelloHandler)	// 第一引数に一致するリクエストが来たら、第二引数を実行
 
 	// サーバーをポート8080とする設定
 	port := "8080"
 
 	// 起動時ログにメッセージを出す
-	fmt.Printf("Server is listening on port %s...\n", port)
+	log.Printf("Server started on :%s", port)
 
 	// 指定されたポートでHTTPサーバーを起動 && エラーチェック
 	if err := http.ListenAndServe(":" + port, nil); err != nil {

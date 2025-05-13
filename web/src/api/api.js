@@ -9,6 +9,7 @@ export default {
    * @returns 
    */
   login: (data) => {
+    console.log("Go to /api/login🐾");
     return axios.post('/api/login', data);  // POSTリクエストでボディにデータを送信
   },
 

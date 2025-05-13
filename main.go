@@ -27,14 +27,12 @@ func corsMiddleware(next http.Handler) http.Handler {
 
 func main() {
 
-	// リクエスト時の処理を設定する
-	http.HandleFunc("/", handler.HelloHandler)	// 第一引数に一致するリクエストが来たら、第二引数を実行
-
 	// マルチプレクサ(mux)ルーターの作成
 	mux := http.NewServeMux()
 
 	// mux にエンドポイントの登録
-	mux.HandleFunc("/api/login", handler.LoginHandler)	// パスと処理を結びつける
+	mux.HandleFunc("/", handler.HelloHandler)						// "/" にアクセスされたときに HelloHandler を実行
+	mux.HandleFunc("/api/login", handler.LoginHandler)	// "/api/login" にアクセスされたときに LoginHandler を実行
 
 	// mux にCORS対応ミドルウェアを設定する
 	handlerWithCORS := corsMiddleware(mux)

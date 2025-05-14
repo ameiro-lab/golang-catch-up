@@ -1,21 +1,21 @@
 package main
 
 import (
+	"golang-catch-up/internal/db"
+	"golang-catch-up/internal/router"
 	"log"
-	"golang-catch-up/pkg/router" // プロジェクト内のルーター設定パッケージ
-	"golang-catch-up/pkg/db"
 )
 
 func main() {
 
 	// データベース接続を初期化
-  db.InitDB()
+	db.InitDB()
 
 	// ルーターのセットアップ
 	r := router.SetupRouter()
 	/**
-		var r *gin.Engine
-		r = router.SetupRouter()
+	var r *gin.Engine
+	r = router.SetupRouter()
 	*/
 
 	// サーバーをポート8080とする設定
@@ -28,7 +28,7 @@ func main() {
 	if err := r.Run(":" + port); err != nil {
 		log.Fatalf("Error starting server: %v\n", err)
 	}
-/**
+	/**
 	上記の3行は省略記法。きちんと書くと、下記の処理が行われている。
 
 		var err error		// err を外で宣言
@@ -39,10 +39,10 @@ func main() {
 		log.Fatalf("Error starting server: %v\n", err)
 	}
 
-	「err が nil でない場合って？」  
+	「err が nil でない場合って？」
 		・error 型のゼロ値は nil です。
 		・なので、err という変数が nil の場合、それは「エラーが発生しなかった」ことを意味する。
 		・だから、err に値があるならば（＝errがnillでないならば）処理を行う！
-*/
+	*/
 
 }

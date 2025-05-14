@@ -1,9 +1,10 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"      	// Ginフレームワークのコアパッケージ
-	"golang-catch-up/pkg/handler"   	// ハンドラー関数を含むプロジェクト内パッケージ
-	"golang-catch-up/pkg/middleware"	// ミドルウェア関数を含むプロジェクト内パッケージ
+	"golang-catch-up/internal/handler"
+	"golang-catch-up/internal/middleware"
+
+	"github.com/gin-gonic/gin" // Ginフレームワークのコアパッケージ
 )
 
 // ルーターをセットアップする
@@ -17,9 +18,9 @@ func SetupRouter() *gin.Engine {
 	r.Use(middleware.CORSMiddleware())
 
 	// ルーティング
-	api := r.Group("/api")	// API通信用のエンドポイントグループを生成
+	api := r.Group("/api") // API通信用のエンドポイントグループを生成
 	{
-		api.POST("/login", handler.LoginHandler)	// "/api/login" にアクセスされたときに LoginHandler を実行
+		api.POST("/login", handler.LoginHandler) // "/api/login" にアクセスされたときに LoginHandler を実行
 	}
 
 	// トップページ(ルートパス)にアクセスされた時の挙動を設定

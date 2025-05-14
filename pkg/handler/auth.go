@@ -6,6 +6,7 @@ import (
 	"net/http"                  // HTTPステータスコードを使用するため
 
 	"github.com/gin-gonic/gin" // Ginフレームワークのコアパッケージ
+	"golang-catch-up/pkg/db"
 )
 
 // "/login"のPOSTリクエストを処理する
@@ -32,6 +33,15 @@ func LoginHandler(c *gin.Context) {
 	// 受信したログイン情報をコンソールに出力する
 	fmt.Printf("Received login request: %s, %s\n", loginData.Username, loginData.Password)
 
+	// DBアクセス && エラーチェック
+	users, err := db.GetUsers()
+	if err != nil {
+		// エラーログを追加して詳細な情報を出力
+		fmt.Printf("Error fetching users from DB: %v\n", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "ユーザー情報の取得に失敗しました"})
+		return
+	}
+
 	// 成功レスポンスを返す
-	c.JSON(http.StatusOK, gin.H{"message": "Login successful"}) // TO DO：認証処理を実装する
+	c.JSON(http.StatusOK, gin.H{"users": users}) // TO DO：認証処理を実装する
 }

@@ -3,9 +3,13 @@ package main
 import (
 	"log"
 	"golang-catch-up/pkg/router" // プロジェクト内のルーター設定パッケージ
+	"golang-catch-up/pkg/db"
 )
 
 func main() {
+
+	// データベース接続を初期化
+  db.InitDB()
 
 	// ルーターのセットアップ
 	r := router.SetupRouter()
